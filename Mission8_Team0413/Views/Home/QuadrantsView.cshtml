@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Mission8_Team0413.Models.Task>
+
+@{
     ViewData["Title"] = "Quadrants View";
 }
 <h1>@ViewData["Title"]</h1>
@@ -12,11 +14,11 @@
         <div class="col-md-6 mb-4">
             <div class="card text-center h-100">
                 <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.QuadrantId == 1 && t.Completed == false))
+                    @foreach (var a in Model.Where(t => t.Quadrant == 1 && t.Completed == false))
                     {
-                        <p>@a.TaskName</p>
+                        <p>@a.TaskDescription</p>
                         <p>@a.DueDate</p>
-                        <p>@a.CategoryId.CategoryName</p>
+                        <p>@a.Category.CategoryName</p>
                         <p>@a.Completed</p>
                         <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@a.TaskId">Edit</a>
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@a.TaskId">Delete</a>
@@ -29,11 +31,11 @@
         <div class="col-md-6 mb-4">
             <div class="card text-center h-100">
                 <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.QuadrantId == 2 && t.Completed == false))
+                    @foreach (var a in Model.Where(t => t.Quadrant == 2 && t.Completed == false))
                     {
-                        <p>@a.TaskName</p>
+                        <p>@a.TaskDescription</p>
                         <p>@a.DueDate</p>
-                        <p>@a.CategoryId.CategoryName</p>
+                        <p>@a.Category.CategoryName</p>
                         <p>@a.Completed</p>
                         <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@a.TaskId">Edit</a>
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@a.TaskId">Delete</a>
@@ -48,11 +50,11 @@
         <div class="col-md-6 mb-4">
             <div class="card text-center h-100">
                 <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.QuadrantId == 3 && t.Completed == false))
+                    @foreach (var a in Model.Where(t => t.Quadrant == 3 && t.Completed == false))
                     {
-                        <p>@a.TaskName</p>
+                        <p>@a.TaskDescription</p>
                         <p>@a.DueDate</p>
-                        <p>@a.CategoryId.CategoryName</p>
+                        <p>@a.Category.CategoryName</p>
                         <p>@a.Completed</p>
                         <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@a.TaskId">Edit</a>
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@a.TaskId">Delete</a>
@@ -65,11 +67,11 @@
         <div class="col-md-6 mb-4">
             <div class="card text-center h-100">
                 <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.QuadrantId == 4 && t.Completed == false))
+                    @foreach (var a in Model.Where(t => t.Quadrant == 4 && t.Completed == false))
                     {
-                        <p>@a.TaskName</p>
+                        <p>@a.TaskDescription</p>
                         <p>@a.DueDate</p>
-                        <p>@a.CategoryId.CategoryName</p>
+                        <p>@a.Category.CategoryName</p>
                         <p>@a.Completed</p>
                         <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@a.TaskId">Edit</a>
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@a.TaskId">Delete</a>
