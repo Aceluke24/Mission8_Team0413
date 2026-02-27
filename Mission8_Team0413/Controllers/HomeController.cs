@@ -37,7 +37,7 @@ public class HomeController : Controller
 
     
 
-    [HttpPost]
+    [HttpGet]
     public IActionResult Delete(int taskId)
     {
         _repo.DeleteTask(taskId);
