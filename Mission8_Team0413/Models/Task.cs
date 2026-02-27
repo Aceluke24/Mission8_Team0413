@@ -18,9 +18,10 @@ public class Task //Creates schema and required attributes for database
     [Range(1, 4, ErrorMessage = "Quadrant must be between 1 and 4.")]
     public int Quadrant { get; set; }
     
+  [Required(ErrorMessage = "Please enter a Category.")]
+    public int CategoryId { get; set; }
     [ForeignKey("CategoryId")] //Connects separate table via Foreign Key
-    public int? CategoryId { get; set; }
-    public Category? Category { get; set; }
+    public Category Category { get; set; }
     
     public bool Completed { get; set; }
 

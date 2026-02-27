@@ -41,9 +41,26 @@ public class HomeController : Controller
         return RedirectToAction("QuadrantsView");
     }
 
+    [HttpPost]
     public IActionResult Delete(int taskId)
     {
         _repo.DeleteTask(taskId);
         return RedirectToAction("QuadrantsView");
     }
+    
+    [HttpGet]
+    public IActionResult Add()
+    {
+        ViewBag.Categories = _repo.Categories;
+        return View();
+    }
+    
+    
+    [HttpPost]
+    public IActionResult Add(Task task)
+    {
+        _repo.AddTask(task);
+        return RedirectToAction("QuadrantsView");
+    }
+    
 }

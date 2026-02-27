@@ -6,4 +6,5 @@ public interface ITaskRepository //Serves as a template for the template
     public void AddTask(Task task);
     public void UpdateTask(Task task);
     public void DeleteTask(int taskId);
+    List<Category> Categories { get; }
 }
