@@ -30,16 +30,12 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Edit(int taskId)
     {
+        ViewBag.Categories = _repo.Categories;
         var task = _repo.Tasks.FirstOrDefault(x => x.TaskId == taskId);
-        return View(task);
+        return View("Add", task);
     }
 
-    [HttpPost]
-    public IActionResult Edit(Task task)
-    {
-        _repo.UpdateTask(task);
-        return RedirectToAction("QuadrantsView");
-    }
+    
 
     [HttpPost]
     public IActionResult Delete(int taskId)
@@ -59,8 +55,15 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Add(Task task)
     {
-        _repo.AddTask(task);
-        return RedirectToAction("QuadrantsView");
+        if (task.TaskId == 0)
+        {
+            _repo.AddTask(task);
+        }
+        else
+        {
+            _repo.UpdateTask(task);
+        }
+            return RedirectToAction("QuadrantsView");
     }
     
 }
