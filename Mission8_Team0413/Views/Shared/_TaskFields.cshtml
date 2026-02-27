@@ -1,0 +1,50 @@
+﻿@model Mission8_Team0413.ViewModels.TaskFormViewModel
+
+<div class="row g-3">
+
+    <!-- Task (required) -->
+    <div class="col-md-8">
+        <label asp-for="TaskDescription" class="form-label"></label>
+        <input asp-for="TaskDescription" class="form-control" />
+        <span asp-validation-for="TaskDescription" class="text-danger"></span>
+    </div>
+
+    <!-- Due Date -->
+    <div class="col-md-4">
+        <label asp-for="DueDate" class="form-label"></label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
+    </div>
+
+    <!-- Quadrant (1..4) -->
+    <div class="col-md-6">
+        <label asp-for="Quadrant" class="form-label"></label>
+        <select asp-for="Quadrant" class="form-select">
+            <option value="">-- Select Quadrant --</option>
+            <option value="1">Quadrant I — Important / Urgent</option>
+            <option value="2">Quadrant II — Important / Not Urgent</option>
+            <option value="3">Quadrant III — Not Important / Urgent</option>
+            <option value="4">Quadrant IV — Not Important / Not Urgent</option>
+        </select>
+        <span asp-validation-for="Quadrant" class="text-danger"></span>
+    </div>
+
+    <!-- Category (SelectList from controller) -->
+    <div class="col-md-6">
+        <label asp-for="CategoryId" class="form-label"></label>
+        <select asp-for="CategoryId" class="form-select" asp-items="Model.CategoryList">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <!-- Completed -->
+    <div class="col-12">
+        <div class="form-check">
+            <input asp-for="Completed" class="form-check-input" />
+            <label asp-for="Completed" class="form-check-label"></label>
+        </div>
+        <span asp-validation-for="Completed" class="text-danger"></span>
+    </div>
+
+</div>
