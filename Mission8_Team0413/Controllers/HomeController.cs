@@ -17,7 +17,8 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        var completedTasks = _repo.Tasks.Where(t => t.Completed == true).ToList();
+        return View(completedTasks);
     }
 
     [HttpGet]
@@ -66,4 +67,22 @@ public class HomeController : Controller
             return RedirectToAction("QuadrantsView");
     }
     
+    [HttpGet]
+    public IActionResult MarkComplete(int taskId)
+    {
+        var task = _repo.Tasks.FirstOrDefault(x => x.TaskId == taskId);
+        task.Completed = true;
+        _repo.UpdateTask(task);
+        return RedirectToAction("QuadrantsView");
+    }
+    
+    [HttpGet]
+    public IActionResult UnmarkComplete(int taskId)
+    {
+        var task = _repo.Tasks.FirstOrDefault(x => x.TaskId == taskId);
+        task.Completed = false;
+        _repo.UpdateTask(task);
+        return RedirectToAction("Index");
+    }
+
 }

@@ -46,9 +46,12 @@
                             </select>
                         </div>
 
-                        <div class="mb-3 form-check">
-                            <input asp-for="Completed" class="form-check-input" type="checkbox" />
-                            <label class="form-check-label">Completed</label>
+                        <div class="mb-3">
+                            <label class="form-label">Completed</label>
+                            <select asp-for="Completed" class="form-control">
+                                <option value="false">False</option>
+                                <option value="true">True</option>
+                            </select>
                         </div>
 
                         <div class="mt-3 d-flex gap-2">

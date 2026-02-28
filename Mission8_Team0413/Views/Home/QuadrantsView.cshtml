@@ -4,79 +4,144 @@
     ViewData["Title"] = "Time Management Matrix";
 }
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Quadrant View</h2>
-    
-    
-    <div class="row">
-        <!-- Top Left -->
-        <div class="col-md-6 mb-4">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.Quadrant == 1 && t.Completed == false))
-                    {
-                        <p>@a.TaskDescription</p>
-                        <p>@a.DueDate</p>
-                        <p>@a.Category.CategoryName</p>
-                        <p>@a.Completed</p>
-                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
-                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
-                    }
-                </div>
-            </div>
-        </div>
+<style>
+    .matrix-yellow {
+        background-color: #c9a84c;
+        border-color: #8B6914;
+    }
+    .matrix-header {
+        background-color: #c9a84c;
+        border: 2px solid #8B6914;
+    }
+    .task-row {
+        background-color: #e8c97a;
+        border: 1px solid #8B6914;
+    }
+    .card-body {
+        min-height: 200px;
+    }
+</style>
 
-        <!-- Top Right -->
-        <div class="col-md-6 mb-4">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.Quadrant == 2 && t.Completed == false))
-                    {
-                        <p>@a.TaskDescription</p>
-                        <p>@a.DueDate</p>
-                        <p>@a.Category.CategoryName</p>
-                        <p>@a.Completed</p>
-                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
-                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
-                    }
-                </div>
-            </div>
-        </div>
+<div class="container mt-4">
+    <h2 class="text-center mb-4 fw-bold">Stephen Covey's Time Management Matrix</h2>
+
+    <!-- Urgent / Not Urgent Headers -->
+    <div class="row mb-1">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 text-center"><h5 class="fw-bold text-uppercase">Urgent</h5></div>
+        <div class="col-md-5 text-center"><h5 class="fw-bold text-uppercase">Not Urgent</h5></div>
+        <div class="col-md-1"></div>
     </div>
 
+    <!-- Top Row: Quadrant 1 and 2 -->
     <div class="row">
-        <!-- Bottom Left -->
-        <div class="col-md-6 mb-4">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.Quadrant == 3 && t.Completed == false))
+        <!-- Important Label -->
+        <div class="col-md-1 d-flex align-items-center justify-content-center">
+            <span class="fw-bold text-uppercase" style="writing-mode: vertical-rl; transform: rotate(180deg);">Important</span>
+        </div>
+
+        <!-- Quadrant 1 -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 matrix-yellow border-2" style="border: 2px solid #8B6914;">
+                <div class="card-header matrix-header text-center fw-bold border-bottom" style="border-bottom: 2px solid #8B6914;">Quadrant 1 – Important / Urgent</div>
+                <div class="card-body p-2 matrix-yellow">
+                    @foreach (var a in Model.Where(t => t.Quadrant == 1 && t.Completed == false))
                     {
-                        <p>@a.TaskDescription</p>
-                        <p>@a.DueDate</p>
-                        <p>@a.Category.CategoryName</p>
-                        <p>@a.Completed</p>
-                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
-                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
+                        <div class="d-flex justify-content-between align-items-center task-row rounded p-2 mb-2">
+                            <div class="text-start">
+                                <strong>@a.TaskDescription</strong>
+                                <small class="d-block">@a.DueDate.ToShortDateString() | @a.Category.CategoryName</small>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-sm btn-success" asp-controller="Home" asp-action="MarkComplete" asp-route-taskId="@a.TaskId">Complete</a>
+                                <a class="btn btn-sm btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
+                                <a class="btn btn-sm btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
         </div>
 
-        <!-- Bottom Right -->
-        <div class="col-md-6 mb-4">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    @foreach (var a in Model.Where(t => t.Quadrant == 4 && t.Completed == false))
+        <!-- Quadrant 2 -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 matrix-yellow" style="border: 2px solid #8B6914;">
+                <div class="card-header matrix-header text-center fw-bold" style="border-bottom: 2px solid #8B6914;">Quadrant 2 – Important / Not Urgent</div>
+                <div class="card-body p-2 matrix-yellow">
+                    @foreach (var a in Model.Where(t => t.Quadrant == 2 && t.Completed == false))
                     {
-                        <p>@a.TaskDescription</p>
-                        <p>@a.DueDate</p>
-                        <p>@a.Category.CategoryName</p>
-                        <p>@a.Completed</p>
-                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
-                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
+                        <div class="d-flex justify-content-between align-items-center task-row rounded p-2 mb-2">
+                            <div class="text-start">
+                                <strong>@a.TaskDescription</strong>
+                                <small class="d-block">@a.DueDate.ToShortDateString() | @a.Category.CategoryName</small>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-sm btn-success" asp-controller="Home" asp-action="MarkComplete" asp-route-taskId="@a.TaskId">Complete</a>
+                                <a class="btn btn-sm btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
+                                <a class="btn btn-sm btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
         </div>
+
+        <div class="col-md-1"></div>
+    </div>
+
+    <!-- Bottom Row: Quadrant 3 and 4 -->
+    <div class="row">
+        <!-- Not Important Label -->
+        <div class="col-md-1 d-flex align-items-center justify-content-center">
+            <span class="fw-bold text-uppercase" style="writing-mode: vertical-rl; transform: rotate(180deg);">Not Important</span>
+        </div>
+
+        <!-- Quadrant 3 -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 matrix-yellow" style="border: 2px solid #8B6914;">
+                <div class="card-header matrix-header text-center fw-bold" style="border-bottom: 2px solid #8B6914;">Quadrant 3 – Not Important / Urgent</div>
+                <div class="card-body p-2 matrix-yellow">
+                    @foreach (var a in Model.Where(t => t.Quadrant == 3 && t.Completed == false))
+                    {
+                        <div class="d-flex justify-content-between align-items-center task-row rounded p-2 mb-2">
+                            <div class="text-start">
+                                <strong>@a.TaskDescription</strong>
+                                <small class="d-block">@a.DueDate.ToShortDateString() | @a.Category.CategoryName</small>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-sm btn-success" asp-controller="Home" asp-action="MarkComplete" asp-route-taskId="@a.TaskId">Complete</a>
+                                <a class="btn btn-sm btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
+                                <a class="btn btn-sm btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Quadrant 4 -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 matrix-yellow" style="border: 2px solid #8B6914;">
+                <div class="card-header matrix-header text-center fw-bold" style="border-bottom: 2px solid #8B6914;">Quadrant 4 – Not Important / Not Urgent</div>
+                <div class="card-body p-2 matrix-yellow">
+                    @foreach (var a in Model.Where(t => t.Quadrant == 4 && t.Completed == false))
+                    {
+                        <div class="d-flex justify-content-between align-items-center task-row rounded p-2 mb-2">
+                            <div class="text-start">
+                                <strong>@a.TaskDescription</strong>
+                                <small class="d-block">@a.DueDate.ToShortDateString() | @a.Category.CategoryName</small>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-sm btn-success" asp-controller="Home" asp-action="MarkComplete" asp-route-taskId="@a.TaskId">Complete</a>
+                                <a class="btn btn-sm btn-info" asp-controller="Home" asp-action="Edit" asp-route-taskId="@a.TaskId">Edit</a>
+                                <a class="btn btn-sm btn-danger" asp-controller="Home" asp-action="Delete" asp-route-taskId="@a.TaskId">Delete</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1"></div>
     </div>
 </div>

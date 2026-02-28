@@ -1,8 +1,58 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Mission8_Team0413.Models.Task>
+
+@{
+    ViewData["Title"] = "Completed Tasks";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .matrix-yellow {
+        background-color: #c9a84c;
+        border-color: #8B6914;
+    }
+    .matrix-header {
+        background-color: #c9a84c;
+        border: 2px solid #8B6914;
+    }
+    .task-row {
+        background-color: #e8c97a;
+        border: 1px solid #8B6914;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 fw-bold">Completed Tasks</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card matrix-yellow" style="border: 2px solid #8B6914;">
+                <div class="card-header matrix-header text-center fw-bold" style="border-bottom: 2px solid #8B6914;">
+                    All Completed Tasks
+                </div>
+                <div class="card-body matrix-yellow p-2">
+                    @if (!Model.Any())
+                    {
+                        <p class="text-center">No completed tasks yet.</p>
+                    }
+                    @foreach (var a in Model)
+                    {
+                        <div class="d-flex justify-content-between align-items-center task-row rounded p-2 mb-2">
+                            <div class="text-start">
+                                <strong>@a.TaskDescription</strong>
+                                <small class="d-block">
+                                    @a.DueDate.ToShortDateString() | @a.Category.CategoryName |
+                                    @if (a.Quadrant == 1) { <span>Important / Urgent</span> }
+                                    else if (a.Quadrant == 2) { <span>Important / Not Urgent</span> }
+                                    else if (a.Quadrant == 3) { <span>Not Important / Urgent</span> }
+                                    else if (a.Quadrant == 4) { <span>Not Important / Not Urgent</span> }
+                                </small>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-sm btn-warning" asp-controller="Home" asp-action="UnmarkComplete" asp-route-taskId="@a.TaskId">Unmark as Complete</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
